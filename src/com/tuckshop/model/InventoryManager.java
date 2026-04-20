@@ -1,3 +1,8 @@
+/*
+ * Author: Wayne Ashley
+ * Task: Milestone 3 - Tuck Shop Management System
+ * Description: Handles inventory storage, sales calculations, and stock display.
+ */
 package com.tuckshop.model;
 
 import java.util.ArrayList;
