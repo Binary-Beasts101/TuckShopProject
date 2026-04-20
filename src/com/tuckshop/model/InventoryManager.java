@@ -3,75 +3,42 @@ package com.tuckshop.model;
 import java.util.ArrayList;
 
 public class InventoryManager {
-
     private ArrayList<Product> stockList;
 
     public InventoryManager() {
-
         this.stockList = new ArrayList<>();
     }
 
     public void registerNewProduct(Product item) {
         stockList.add(item);
-        System.out.println("System Log: " + item.getName() + " has been added to the shop.");
     }
 
-    public void showInventoryStatus() {
-        System.out.println("\n--- TUCK SHOP CURRENT STOCK ---");
+    public void sellProduct(String id, int amount) {
         for (Product item : stockList) {
-            System.out.println("Product: " + item.getName() +
-                    " | Quantity: " + item.getQuantity()
-                    " | Unit Price: P" + item.getPrice());
-
-            if (item.getQuantity() < 5) {
-                System.out.println("!!! ATTENTION: " + item.getName() + " is running low on stock.");
-            }
-        }
-    }
-
-    public void processSale(String nameOfItem, int amountSold) {
-        for (Product item : stockList) {
-
-            if (item.getName().equalsIgnoreCase(nameOfItem)) {
-                if (item.getQuantity() >= amountSold) {
-
-                    item.setQuantity(item.getQuantity() - amountSold);
-
-                    double totalRevenue = item.getPrice() * amountSold;
-                    System.out.println("Transaction Successful: p" + totalRevenue + " received.");
-                    System.out.println("Updated stock level for " + nameOfItem + ": " + item.getQuantity());
+            if (item.getId().equalsIgnoreCase(id)) {
+                if (item.getQuantity() >= amount) {
+                    item.setQuantity(item.getQuantity() - amount);
+                    System.out.println("\n--- SALE SUCCESSFUL ---");
+                    System.out.println("Sold: " + amount + " x " + item.getName());
+                    System.out.println("Total: P" + (item.getPrice() * amount));
                 } else {
-                    System.out.println("Transaction Failed: Insufficient stock for " + nameOfItem);
+                    System.out.println("\nERROR: Not enough stock!");
                 }
                 return;
             }
         }
-        System.out.println("Error: Item not found in the inventory system.");
+        System.out.println("\nERROR: Product ID not found.");
     }
 
-    public void displayAllItems() {
-        System.out.println("\n********************************");
-        System.out.println("   --- UB TUCK SHOP SYSTEM ---  ");
-        System.out.println("********************************");
-
-        double subtotal = 0;
-
-        for (Product p : stockList) {
-
-            System.out.println("> " + p.getName() + " ........... P" + p.getPrice());
-            subtotal += p.getPrice();
+    public void displayReceipt() {
+        System.out.println("\n===============================");
+        System.out.println("       UB TUCK SHOP STOCK      ");
+        System.out.println("===============================");
+        for (Product item : stockList) {
+            System.out.println(item.getId() + " | " + item.getName() +
+                    " | P" + item.getPrice() +
+                    " | Stock: " + item.getQuantity());
         }
-
-        double discount = subtotal * 0.10; // 10% discount
-        double finalTotal = subtotal - discount;
-
-        System.out.println("--------------------------------");
-        System.out.println("Subtotal: P" + subtotal);
-        System.out.println("Student Discount (10%): -P" + discount);
-        System.out.println("--------------------------------");
-        System.out.println("Final Total: P" + finalTotal);
-        System.out.println("********************************");
-        System.out.println("  Have a great day loyal customer   ");
-
+        System.out.println("===============================");
     }
 }

@@ -1,36 +1,45 @@
 package com.tuckshop.model;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         InventoryManager myTuckShop = new InventoryManager();
+        Scanner input = new Scanner(System.in);
 
-        Product item1 = new Product("P01", "Coke", 12.50, 10) {
+        // Pre-load the shop with items
+        myTuckShop.registerNewProduct(new Product("P01", "Coke", 12.50, 10) {
             @Override
             public String getDisplayInfo() {
-                return "Drink: " + getName();
+                return "Drink";
             }
-        };
-
-        Product item2 = new Product("P02", "Chips", 8.00, 20) {
+        });
+        myTuckShop.registerNewProduct(new Product("P02", "Chips", 8.00, 20) {
             @Override
             public String getDisplayInfo() {
-                return "Snack: " + getName();
+                return "Snack";
             }
-        };
+        });
 
-        Product item3 = new Product("P03", "Biscuits", 5.50, 15) {
-            @Override
-            public String getDisplayInfo() {
-                return "Snack: " + getName();
+        boolean active = true;
+        while (active) {
+            System.out.println("\n1. View Stock  2. Sell Item  3. Exit");
+            System.out.print("Choice: ");
+            int choice = input.nextInt();
+
+            if (choice == 1) {
+                myTuckShop.displayReceipt();
+            } else if (choice == 2) {
+                System.out.print("Enter ID: ");
+                String id = input.next();
+                System.out.print("Amount: ");
+                int qty = input.nextInt();
+                myTuckShop.sellProduct(id, qty);
+            } else if (choice == 3) {
+                active = false;
+                System.out.println("System Shutdown.");
             }
-        };
-
-        myTuckShop.registerNewProduct(item1);
-        myTuckShop.registerNewProduct(item2);
-        myTuckShop.registerNewProduct(item3);
-
-        myTuckShop.displayAllItems();
-
-        System.out.println("\nSuccess! System is stable.");
+        }
+        input.close();
     }
 }
