@@ -1,12 +1,12 @@
 package com.tuckshop.model;
 
-public class product {
+public abstract class Product {
     private String id;
     private String name;
     private double price;
     private int quantity;
 
-    public product(String id, String name, double price, int quantity) {
+    public Product(String id, String name, double price, int quantity) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -29,8 +29,15 @@ public class product {
         return quantity;
     }
 
-    // Setter to update stock
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public abstract String getDisplayInfo();
+
+    @Override
+    public String toString() {
+        return String.format("ID: %s | Name: %s | Price: P%.2f | Stock: %d", 
+                              id, name, price, quantity);
     }
 }

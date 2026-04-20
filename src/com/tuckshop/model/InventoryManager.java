@@ -4,22 +4,22 @@ import java.util.ArrayList;
 
 public class InventoryManager {
 
-    private ArrayList<product> stockList;
+    private ArrayList<Product> stockList;
 
     public InventoryManager() {
 
         this.stockList = new ArrayList<>();
     }
 
-    public void registerNewproduct(product item) {
+    public void registerNewProduct(Product item) {
         stockList.add(item);
         System.out.println("System Log: " + item.getName() + " has been added to the shop.");
     }
 
     public void showInventoryStatus() {
         System.out.println("\n--- TUCK SHOP CURRENT STOCK ---");
-        for (product item : stockList) {
-            System.out.println("product: " + item.getName() +
+        for (Product item : stockList) {
+            System.out.println("Product: " + item.getName() +
                     " | Quantity: " + item.getQuantity() +
                     " | Unit Price: P" + item.getPrice());
 
@@ -30,7 +30,7 @@ public class InventoryManager {
     }
 
     public void processSale(String nameOfItem, int amountSold) {
-        for (product item : stockList) {
+        for (Product item : stockList) {
 
             if (item.getName().equalsIgnoreCase(nameOfItem)) {
                 if (item.getQuantity() >= amountSold) {
@@ -56,7 +56,7 @@ public class InventoryManager {
 
         double subtotal = 0;
 
-        for (product p : stockList) {
+        for (Product p : stockList) {
 
             System.out.println("> " + p.getName() + " ........... P" + p.getPrice());
             subtotal += p.getPrice();
