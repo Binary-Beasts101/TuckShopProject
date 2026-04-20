@@ -21,7 +21,7 @@ public class InventoryManager {
     public void sellProduct(String id, int amount) {
         for (Product item : stockList) {
             if (item.getId().equalsIgnoreCase(id)) {
-                if (item.getQuantity() >= amount) {
+                if (item.getQuantity() >= amount && amount > 0) {
                     item.setQuantity(item.getQuantity() - amount);
                     System.out.println("\n--- SALE SUCCESSFUL ---");
                     System.out.println("Sold: " + amount + " x " + item.getName());
